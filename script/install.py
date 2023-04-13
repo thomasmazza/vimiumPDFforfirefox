@@ -13,18 +13,15 @@ except ImportError:
     os.execv(sys.executable, [sys.executable] + sys.argv)
 
 
-def create_shortcut(target, shortcut_path, description='', run_as_admin=True):
+def create_shortcut(target, path, description):
     shell = Dispatch('WScript.Shell')
-
-    shortcut = shell.CreateShortcut(shortcut_path)
-    shortcut.TargetPath = target
+    shortcut = shell.CreateShortcut(path)
+    shortcut.TargetPath = "runas.exe"
+    shortcut.Arguments = f'/savecred /user:Administrator "{target}"'
     shortcut.Description = description
-
-    if run_as_admin:
-        hres = shell.CreateShortcut(shortcut_path)
-        shell.SHGetSetShortcut(hres, "RunStyle", 1)
-        hres.Save()
-    shortcut.Save()
+    shortcut.WorkingDirectory = os.path.dirname(target)
+    shortcut.IconLocation = target
+    shortcut.save()
 
 
 def is_admin():
