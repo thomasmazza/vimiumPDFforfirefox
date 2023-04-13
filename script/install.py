@@ -82,7 +82,7 @@ if is_admin():
     program_files = os.environ.get('ProgramFiles')
 
     # Specify the target folder name inside the Program Files folder
-    destination_folder_name = "VimiumForFirefox"
+    destination_folder_name = "VimiumPDFForFirefox"
     destination_path = os.path.join(program_files, destination_folder_name)
 
     print(f"Source: {source}")
