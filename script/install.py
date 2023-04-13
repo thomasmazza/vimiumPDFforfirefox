@@ -5,6 +5,13 @@ import ctypes
 import subprocess
 
 
+def is_admin():
+    try:
+        return ctypes.windll.shell32.IsUserAnAdmin()
+    except:
+        return False
+
+
 def create_symlink(source_folder, target_folder, link_name):
     link_path = os.path.join(target_folder, link_name)
     try:
@@ -12,13 +19,6 @@ def create_symlink(source_folder, target_folder, link_name):
             f'mklink /D "{link_path}" "{source_folder}"', shell=True, check=True)
     except Exception as e:
         print(e)
-
-
-def is_admin():
-    try:
-        return ctypes.windll.shell32.IsUserAnAdmin()
-    except:
-        return False
 
 
 def copytree(src, dst, exclude_items=['.git', '.github', 'examples']):
