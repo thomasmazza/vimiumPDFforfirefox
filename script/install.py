@@ -10,8 +10,6 @@ def is_admin():
     except:
         return False
 
-# Copys directorys and files without the exclude_dir
-
 
 def copytree(src, dst, exclude_dir='.git'):
     if not os.path.exists(dst):
@@ -24,20 +22,33 @@ def copytree(src, dst, exclude_dir='.git'):
         s = os.path.join(src, item)
         d = os.path.join(dst, item)
 
+        # Add a print statement to track progress
+        print(f"Copying: {s} -> {d}")
+
         if os.path.isdir(s):
-            copytree(s, d)  # Rekursiv für Unterordner
+            copytree(s, d)  # Recursively for subfolders
         else:
-            shutil.copy2(s, d)  # Dateien kopieren
+            shutil.copy2(s, d)  # Copy files
 
 
 if is_admin():
-    print("The script is running with administrator priviliges")
+    print("The script is running with administrator privileges.")
+
     script_path = os.path.abspath(__file__)
     source = os.path.dirname(os.path.dirname(script_path))
     program_files = os.environ.get('ProgramFiles')
 
-    copytree(source, program_files)
+    # Specify the target folder name inside the Program Files folder
+    destination_folder_name = "YourTargetFolderName"
+    destination_path = os.path.join(program_files, destination_folder_name)
+
+    print(f"Source: {source}")  # Print source path
+    print(f"Destination: {destination_path}")  # Print destination path
+
+    copytree(source, destination_path)
+
+    print("Copying completed.")  # Print a message when copying is done
 else:
-    print("The script is not running with administrator priviliges. Requesting admin priviliges... ")
+    print("The script is running without administrator privileges. Requesting administrator privileges...")
     ctypes.windll.shell32.ShellExecuteW(
         None, "runas", sys.executable, " ".join(sys.argv), None, 1)
