@@ -5,6 +5,12 @@ import ctypes
 import subprocess
 
 
+def create_symlink(source_folder, target_folder, link_name):
+    link_path = os.path.join(target_folder, link_name)
+    subprocess.run(
+        f'mklink /D "{link_path}" "{source_folder}"', shell=True, check=True)
+
+
 def is_admin():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
@@ -76,10 +82,11 @@ if is_admin():
     destination_folder_name = "VimiumForFirefox"
     destination_path = os.path.join(program_files, destination_folder_name)
 
-    print(f"Source: {source}")  # Print source path
-    print(f"Destination: {destination_path}")  # Print destination path
+    print(f"Source: {source}")
+    print(f"Destination: {destination_path}")
 
     copytree(source, destination_path)
+    print("Copying completed.")
 
     if is_npm_installed():
         print("npm is installed.")
@@ -90,10 +97,26 @@ if is_admin():
         os.chdir(destination_path)
         run_npm_install()
 
+        # Create Symlink to a TEMP Folder for the pdfs
+        temp_folder = os.environ.get("TEMP")
+        pdf_folder_name = "VimiumPDFForFirefox"
+        pdf_folder_path = os.path.join(temp_folder, pdf_folder_name)
+
+        if not os.path.exists(pdf_folder_path):
+            os.makedirs(pdf_folder_path)
+
+        # Create pdf folder in Program Files for symlink
+        pdf_files_folder = "pdf"
+        pdf_folder_symlink_path = os.path.join(
+            destination_path, pdf_files_folder)
+
+        if not os.path.exists(pdf_folder_symlink_path):
+            os.makedirs(pdf_folder_symlink_path)
+        create_symlink(pdf_folder_path, destination_path, "pdf")
+
     else:
         print("npm is not installed. Please install npm and try again.")
 
-    print("Copying completed.")  # Print a message when copying is done
 else:
     print("The script is running without administrator privileges. Requesting administrator privileges...")
     ctypes.windll.shell32.ShellExecuteW(
