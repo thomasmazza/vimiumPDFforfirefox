@@ -1,4 +1,5 @@
-This program is a fork of mozilla/pdf.js that allows you to host your own instance of pdf.js. Once set up, you can use Vimium in the Firefox PDF viewer.Vimium PDF for Firefox
+This program is a fork of mozilla/pdf.js that allows you to host your own instance of pdf.js. Once set up, you can use Vimium in the Firefox PDF viewer.
+Vimium PDF for Firefox
 Requirements
 
     Node.js
