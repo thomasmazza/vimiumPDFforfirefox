@@ -1,3 +1,3 @@
 @echo off
 cd "%ProgramFiles%\VimiumPDFForFirefox"
-gulp server
+start /B gulp server

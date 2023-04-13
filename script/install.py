@@ -3,6 +3,21 @@ import shutil
 import sys
 import ctypes
 import subprocess
+from win32com.client import Dispatch
+
+
+def create_shortcut(target, shortcut_path, description='', run_as_admin=True):
+    shell = Dispatch('WScript.Shell')
+
+    shortcut = shell.CreateShortcut(shortcut_path)
+    shortcut.TargetPath = target
+    shortcut.Description = description
+
+    if run_as_admin:
+        hres = shell.CreateShortcut(shortcut_path)
+        shell.SHGetSetShortcut(hres, "RunStyle", 1)
+        hres.Save()
+    shortcut.Save()
 
 
 def is_admin():
