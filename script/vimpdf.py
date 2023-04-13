@@ -10,7 +10,7 @@ def move_pdf(pdf_file, target_folder):
 
     filename = os.path.basename(pdf_file)
     new_path = os.path.join(target_folder, filename)
-    shutil.move(pdf_file, new_path)
+    shutil.copy(pdf_file, new_path)
     return new_path
 
 
