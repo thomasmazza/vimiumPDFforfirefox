@@ -7,8 +7,11 @@ import subprocess
 
 def create_symlink(source_folder, target_folder, link_name):
     link_path = os.path.join(target_folder, link_name)
-    subprocess.run(
-        f'mklink /D "{link_path}" "{source_folder}"', shell=True, check=True)
+    try:
+        subprocess.run(
+            f'mklink /D "{link_path}" "{source_folder}"', shell=True, check=True)
+    except Exception as e:
+        print(e)
 
 
 def is_admin():
