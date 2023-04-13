@@ -32,14 +32,12 @@ def copytree(src, dst, exclude_dir='.git'):
 
 if is_admin():
     print("The script is running with administrator priviliges")
+    script_path = os.path.abspath(__file__)
+    source = os.path.dirname(os.path.dirname(script_path))
+    program_files = os.environ.get('ProgramFiles')
+
+    copytree(source, program_files)
 else:
     print("The script is not running with administrator priviliges. Requesting admin priviliges... ")
     ctypes.windll.shell32.ShellExecuteW(
         None, "runas", sys.executable, " ".join(sys.argv), None, 1)
-script_path = os.path.abspath(__file__)
-
-source = os.path.dirname(os.path.dirname(script_path))
-
-program_files = os.environ.get('ProgramFiles')
-
-copytree(source, program_files)
