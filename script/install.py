@@ -137,7 +137,7 @@ if is_admin():
 
         # Create Shortcut in Autostart
         batch_file = os.path.join(
-            os.environ['ProgramFiles'], r'VimiumForPdf\script', 'run_gulp_server.bat')
+            os.environ['ProgramFiles'], r'VimiumPDFForFirefox\script', 'run_gulp_server.bat')
         startup_folder = os.path.join(
             os.environ['APPDATA'], r'Microsoft\Windows\Start Menu\Programs\Startup')
         shortcut_path = os.path.join(startup_folder, 'GulpServerPDF.lnk')
