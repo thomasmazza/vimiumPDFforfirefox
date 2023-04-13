@@ -142,7 +142,7 @@ if is_admin():
             os.environ['APPDATA'], r'Microsoft\Windows\Start Menu\Programs\Startup')
         shortcut_path = os.path.join(startup_folder, 'GulpServerPDF.lnk')
         create_shortcut(batch_file, shortcut_path,
-                        'Run Gulp server as administrator', run_as_admin=True)
+                        'Run Gulp server as administrator')
 
         print(f'Shortcut created at: {shortcut_path}')
 
