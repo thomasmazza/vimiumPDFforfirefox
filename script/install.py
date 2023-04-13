@@ -48,6 +48,22 @@ def run_npm_install():
         print(f"Error occurred while running 'npm install': {e}")
 
 
+def is_gulp_installed():
+    try:
+        subprocess.check_output("gulp --version", shell=True)
+        return True
+    except subprocess.CalledProcessError:
+        return False
+
+
+def install_gulp():
+    try:
+        subprocess.check_output("npm install -g gulp-cli", shell=True)
+        print("gulp-cli has been installed globally.")
+    except subprocess.CalledProcessErrori as e:
+        print(f"Error eccoured while installing gulp: {e}")
+
+
 # Main Routine
 if is_admin():
     print("The script is running with administrator privileges.")
@@ -66,9 +82,14 @@ if is_admin():
     copytree(source, destination_path)
 
     if is_npm_installed():
-        print("npm is installed. Running npm install...")
+        print("npm is installed.")
+        if not (is_gulp_installed()):
+            print("gulp-cli is not installed. Installing gulp-cli..")
+            install_gulp()
+
         os.chdir(destination_path)
         run_npm_install()
+
     else:
         print("npm is not installed. Please install npm and try again.")
 
