@@ -101,7 +101,7 @@ if is_admin():
         temp_folder = os.environ.get("TEMP")
         pdf_folder_name = "VimiumPDFForFirefox"
         pdf_folder_path = os.path.join(temp_folder, pdf_folder_name)
-
+        print("Before copying")
         if not os.path.exists(pdf_folder_path):
             os.makedirs(pdf_folder_path)
             print(pdf_folder_path)
