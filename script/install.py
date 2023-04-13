@@ -42,7 +42,7 @@ def is_npm_installed():
 
 def run_npm_install():
     try:
-        subprocess.check_output("npm install", shell=True)
+        subprocess.check_output("npm install --force", shell=True)
         print("npm install completed.")
     except subprocess.CalledProcessError as e:
         print(f"Error occurred while running 'npm install': {e}")
