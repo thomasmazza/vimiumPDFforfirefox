@@ -114,8 +114,6 @@ if is_admin():
         pdf_folder_symlink_path = os.path.join(
             destination_path, pdf_files_folder)
 
-        if not os.path.exists(pdf_folder_symlink_path):
-            os.makedirs(pdf_folder_symlink_path)
         create_symlink(pdf_folder_path, destination_path, "pdf")
 
     else:
