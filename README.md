@@ -61,8 +61,8 @@ If you wish to generate the vimpdf.exe file yourself, you can use PyInstaller.
 The vimpdf.exe file will be created in the script\dist folder.
 
 Things i want to add:
- -gulp server autostart 
- -change port in config
- -run gulp server not as admin
- -Linux support
- -Firefox addon
+ gulp server autostart 
+ change port in config
+ run gulp server not as admin
+ Linux support
+ Firefox addon
