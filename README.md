@@ -1,145 +1,63 @@
--------THIS WILL NOT WORK RIGHT NOW!!!!-------
+Vimium PDF for Firefox
+Requirements
 
-# PDF.js [![Build Status](https://github.com/mozilla/pdf.js/workflows/CI/badge.svg?branch=master)](https://github.com/mozilla/pdf.js/actions?query=workflow%3ACI+branch%3Amaster)
+    Node.js
+    Python 3
 
-[PDF.js](https://mozilla.github.io/pdf.js/) is a Portable Document Format (PDF) viewer that is built with HTML5.
+Installation
 
-PDF.js is community-driven and supported by Mozilla. Our goal is to
-create a general-purpose, web standards-based platform for parsing and
-rendering PDFs.
+    Install Node.js and Python 3 on your system.
 
-## Contributing
+    Run the install.py script in the script folder as administrator. This script will set up the necessary files and folders for the program to function properly.
 
-PDF.js is an open source project and always looking for more contributors. To
-get involved, visit:
+sh
 
-+ [Issue Reporting Guide](https://github.com/mozilla/pdf.js/blob/master/.github/CONTRIBUTING.md)
-+ [Code Contribution Guide](https://github.com/mozilla/pdf.js/wiki/Contributing)
-+ [Frequently Asked Questions](https://github.com/mozilla/pdf.js/wiki/Frequently-Asked-Questions)
-+ [Good Beginner Bugs](https://github.com/mozilla/pdf.js/issues?direction=desc&labels=good-beginner-bug&page=1&sort=created&state=open)
-+ [Projects](https://github.com/mozilla/pdf.js/projects)
+python3 script/install.py
 
-Feel free to stop by our [Matrix room](https://chat.mozilla.org/#/room/#pdfjs:mozilla.org) for questions or guidance.
+    Execute the start_gulp_server.bat file in the script folder to start the Gulp server.
 
-## Getting Started
+sh
 
-### Online demo
+script/start_gulp_server.bat
 
-Please note that the "Modern browsers" version assumes native support for the
-latest JavaScript features; please also see [this wiki page](https://github.com/mozilla/pdf.js/wiki/Frequently-Asked-Questions#faq-support).
+Usage
 
-+ Modern browsers: https://mozilla.github.io/pdf.js/web/viewer.html
+To use Vimium PDF for Firefox as your PDF reader, follow the steps below:
 
-+ Older browsers: https://mozilla.github.io/pdf.js/legacy/web/viewer.html
+    Locate a PDF file on your system.
 
-### Browser Extensions
+    Right-click on the PDF file, and select "Open with..."
 
-#### Firefox
+    Click "Choose another app" or "Browse" (depending on your OS) and navigate to the vimpdf.exe file located in the script\dist folder.
 
-PDF.js is built into version 19+ of Firefox.
+    Select vimpdf.exe and click "Open" or "OK" to open the PDF file with Vimium PDF for Firefox.
+    
+To set VimPDF as the default PDF viewer in Firefox, follow these steps:
 
-#### Chrome
+    Open Firefox and click the menu button in the top right corner.
+    Click "Options" and then click "General" in the left-hand menu.
+    Scroll down to the "Applications" section.
+    In the search bar, type "PDF".
+    In the "Portable Document Format (PDF)" row, click the drop-down menu and select "Use VimPDF".
+    Close the settings tab and reload Firefox.
 
-+ Build Your Own - Get the code as explained below and issue `gulp chromium`. Then open
-Chrome, go to `Tools > Extension` and load the (unpackaged) extension from the
-directory `build/chromium`.
+Note: If you want to switch back to the default PDF viewer, simply follow the same steps and select "Preview in Firefox" instead.
 
-## Getting the Code
+Generate vimpdf.exe (Optional)
 
-To get a local copy of the current code, clone it using git:
+If you wish to generate the vimpdf.exe file yourself, you can use PyInstaller.
 
-    $ git clone https://github.com/mozilla/pdf.js.git
-    $ cd pdf.js
+    Install PyInstaller using pip:
 
-Next, install Node.js via the [official package](https://nodejs.org) or via
-[nvm](https://github.com/creationix/nvm). You need to install the gulp package
-globally (see also [gulp's getting started](https://github.com/gulpjs/gulp/tree/master/docs/getting-started)):
+sh
 
-    $ npm install -g gulp-cli
+pip install pyinstaller
 
-If everything worked out, install all dependencies for PDF.js:
+    Navigate to the script folder and run PyInstaller to create the vimpdf.exe file:
 
-    $ npm install
+sh
 
-Finally, you need to start a local web server as some browsers do not allow opening
-PDF files using a `file://` URL. Run:
+cd script
+pyinstaller --onefile vimpdf.py
 
-    $ gulp server
-
-and then you can open:
-
-+ http://localhost:8888/web/viewer.html
-
-Please keep in mind that this requires a modern and fully up-to-date browser; refer to [Building PDF.js](https://github.com/mozilla/pdf.js/blob/master/README.md#building-pdfjs) for non-development usage of the PDF.js library.
-
-It is also possible to view all test PDF files on the right side by opening:
-
-+ http://localhost:8888/test/pdfs/?frame
-
-## Building PDF.js
-
-In order to bundle all `src/` files into two production scripts and build the generic
-viewer, run:
-
-    $ gulp generic
-
-If you need to support older browsers, run:
-
-    $ gulp generic-legacy
-
-This will generate `pdf.js` and `pdf.worker.js` in the `build/generic/build/` directory (respectively `build/generic-legacy/build/`).
-Both scripts are needed but only `pdf.js` needs to be included since `pdf.worker.js` will
-be loaded by `pdf.js`. The PDF.js files are large and should be minified for production.
-
-## Using PDF.js in a web application
-
-To use PDF.js in a web application you can choose to use a pre-built version of the library
-or to build it from source. We supply pre-built versions for usage with NPM and Bower under
-the `pdfjs-dist` name. For more information and examples please refer to the
-[wiki page](https://github.com/mozilla/pdf.js/wiki/Setup-pdf.js-in-a-website) on this subject.
-
-## Including via a CDN
-
-PDF.js is hosted on several free CDNs:
- - https://www.jsdelivr.com/package/npm/pdfjs-dist
- - https://cdnjs.com/libraries/pdf.js
- - https://unpkg.com/pdfjs-dist/
-
-## Learning
-
-You can play with the PDF.js API directly from your browser using the live demos below:
-
-+ [Interactive examples](https://mozilla.github.io/pdf.js/examples/index.html#interactive-examples)
-
-More examples can be found in the [examples folder](https://github.com/mozilla/pdf.js/tree/master/examples/). Some of them are using the pdfjs-dist package, which can be built and installed in this repo directory via `gulp dist-install` command.
-
-For an introduction to the PDF.js code, check out the presentation by our
-contributor Julian Viereck:
-
-+ https://www.youtube.com/watch?v=Iv15UY-4Fg8
-
-More learning resources can be found at:
-
-+ https://github.com/mozilla/pdf.js/wiki/Additional-Learning-Resources
-
-The API documentation can be found at:
-
-+ https://mozilla.github.io/pdf.js/api/
-
-## Questions
-
-Check out our FAQs and get answers to common questions:
-
-+ https://github.com/mozilla/pdf.js/wiki/Frequently-Asked-Questions
-
-Talk to us on Matrix:
-
-+ https://chat.mozilla.org/#/room/#pdfjs:mozilla.org
-
-File an issue:
-
-+ https://github.com/mozilla/pdf.js/issues/new
-
-Follow us on Twitter: @pdfjs
-
-+ https://twitter.com/pdfjs
+The vimpdf.exe file will be created in the script\dist folder.
