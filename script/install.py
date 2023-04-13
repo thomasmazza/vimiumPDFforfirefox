@@ -104,6 +104,7 @@ if is_admin():
 
         if not os.path.exists(pdf_folder_path):
             os.makedirs(pdf_folder_path)
+            print(pdf_folder_path)
 
         # Create pdf folder in Program Files for symlink
         pdf_files_folder = "pdf"
