@@ -28,5 +28,5 @@ if __name__ == "__main__":
     pdf_file = sys.argv[1]
     new_pdf_path = move_pdf(pdf_file, pdf_folder_path)
 
-    url = f"localhost:8888/web/viewer.html?file=%2Fpdf%2F{os.path.basename(pdf_file}"
+    url = f"localhost:8888/web/viewer.html?file=%2Fpdf%2F{os.path.basename(pdf_file)}"
     webbrowser.open(url)
