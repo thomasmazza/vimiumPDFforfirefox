@@ -3,7 +3,15 @@ import shutil
 import sys
 import ctypes
 import subprocess
-from win32com.client import Dispatch
+
+try:
+    from win32com.client import Dispatch
+except ImportError:
+    print("win32com module not found. Installing...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "pywin32"])
+
+    # Import win32com.client after successful installation
+    from win32com.client import Dispatch
 
 
 def create_shortcut(target, shortcut_path, description='', run_as_admin=True):
