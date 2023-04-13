@@ -9,9 +9,8 @@ try:
 except ImportError:
     print("win32com module not found. Installing...")
     subprocess.check_call([sys.executable, "-m", "pip", "install", "pywin32"])
-
-    # Import win32com.client after successful installation
-    from win32com.client import Dispatch
+    print("Restarting the script...")
+    os.execv(sys.executable, [sys.executable] + sys.argv)
 
 
 def create_shortcut(target, shortcut_path, description='', run_as_admin=True):
