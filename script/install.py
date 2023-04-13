@@ -11,12 +11,12 @@ def is_admin():
         return False
 
 
-def copytree(src, dst, exclude_dir='.git'):
+def copytree(src, dst, exclude_items=['.git', '.github', 'examples']):
     if not os.path.exists(dst):
         os.makedirs(dst)
 
     for item in os.listdir(src):
-        if item == exclude_dir:
+        if item in exclude_items:
             continue
 
         s = os.path.join(src, item)
