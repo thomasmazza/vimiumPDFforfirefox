@@ -2,6 +2,7 @@ import os
 import shutil
 import sys
 import ctypes
+import subprocess
 
 
 def is_admin():
@@ -31,6 +32,23 @@ def copytree(src, dst, exclude_items=['.git', '.github', 'examples']):
             shutil.copy2(s, d)  # Copy files
 
 
+def is_npm_installed():
+    try:
+        subprocess.check_output("npm --version", shell=True)
+        return True
+    except subprocess.CalledProcessError:
+        return False
+
+
+def run_npm_install():
+    try:
+        subprocess.check_output("npm install", shell=True)
+        print("npm install completed.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error occurred while running 'npm install': {e}")
+
+
+# Main Routine
 if is_admin():
     print("The script is running with administrator privileges.")
 
@@ -46,6 +64,13 @@ if is_admin():
     print(f"Destination: {destination_path}")  # Print destination path
 
     copytree(source, destination_path)
+
+    if is_npm_installed():
+        print("npm is installed. Running npm install...")
+        os.chdir(destination_path)
+        run_npm_install()
+    else:
+        print("npm is not installed. Please install npm and try again.")
 
     print("Copying completed.")  # Print a message when copying is done
 else:
