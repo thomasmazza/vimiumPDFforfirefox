@@ -152,6 +152,8 @@ if is_admin():
         print(f'Shortcut created at: {shortcut_path}')
 
 else:
-    print("The script is running without administrator privileges. Requesting administrator privileges...")
+    print("The script is running without administrator privileges.")
+    print("Administrator prvileges are required to install and configure VimiumPDFForFirefox.")
+    print("Requesting administrator privileges...")
     ctypes.windll.shell32.ShellExecuteW(
         None, "runas", sys.executable, " ".join(sys.argv), None, 1)
