@@ -40,7 +40,7 @@ def create_symlink(source_folder, target_folder, link_name):
         subprocess.run(
             f'mklink /D "{link_path}" "{source_folder}"', shell=True, check=True)
     except Exception as e:
-        print(e)
+        print(f"Error occurred while creating the symlink: {e}")
 
 
 def copytree(src, dst, exclude_items=['.git', '.github', 'examples']):
