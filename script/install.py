@@ -64,8 +64,10 @@ def is_npm_installed():
     try:
         subprocess.check_output("npm --version", shell=True)
         return True
-    except subprocess.CalledProcessError:
-        return False
+    except subprocess.CalledProcessError as e:
+        print(
+            f"Error occurred while checking npm version: {e.output.decode('utf-8')}")
+        print("Please make sure npm is installed and available in your PATH")
 
 
 def run_npm_install():
@@ -145,9 +147,6 @@ if is_admin():
                         'Run Gulp server as administrator')
 
         print(f'Shortcut created at: {shortcut_path}')
-
-    else:
-        print("npm is not installed. Please install npm and try again.")
 
 else:
     print("The script is running without administrator privileges. Requesting administrator privileges...")
