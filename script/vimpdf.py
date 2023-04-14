@@ -5,13 +5,17 @@ import webbrowser
 
 
 def move_pdf(pdf_file, target_folder):
-    if not os.path.exists(target_folder):
-        os.makedirs(target_folder)
+    try:
+        if not os.path.exists(target_folder):
+            os.makedirs(target_folder)
 
-    filename = os.path.basename(pdf_file)
-    new_path = os.path.join(target_folder, filename)
-    shutil.copy(pdf_file, new_path)
-    return new_path
+        filename = os.path.basename(pdf_file)
+        new_path = os.path.join(target_folder, filename)
+        shutil.copy(pdf_file, new_path)
+        return new_path
+    except Exception as e:
+        print(f"Error occurred while moving the PDF file: {e}")
+        return None
 
 
 if __name__ == "__main__":
