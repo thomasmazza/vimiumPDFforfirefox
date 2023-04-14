@@ -14,14 +14,17 @@ except ImportError:
 
 
 def create_shortcut(target, path, description):
-    shell = Dispatch('WScript.Shell')
-    shortcut = shell.CreateShortcut(path)
-    shortcut.TargetPath = "runas.exe"
-    shortcut.Arguments = f'/savecred /user:Administrator "{target}"'
-    shortcut.Description = description
-    shortcut.WorkingDirectory = os.path.dirname(target)
-    shortcut.IconLocation = target
-    shortcut.save()
+    try:
+        shell = Dispatch('WScript.Shell')
+        shortcut = shell.CreateShortcut(path)
+        shortcut.TargetPath = "runas.exe"
+        shortcut.Arguments = f'/savecred /user:Administrator "{target}"'
+        shortcut.Description = description
+        shortcut.WorkingDirectory = os.path.dirname(target)
+        shortcut.IconLocation = target
+        shortcut.save()
+    except Exception as e:
+        print(f"Error occurred while creating the shortcut: {e}")
 
 
 def is_admin():
