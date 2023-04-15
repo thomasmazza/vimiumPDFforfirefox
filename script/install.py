@@ -47,7 +47,8 @@ def install_dependencies():
         if not (is_gulp_installed()):
             print("gulp-cli is not installed. Installing gulp-cli..")
             install_gulp
-
+        if not os.path.exists(DESTINATION_PATH):
+            os.mkdir(DESTINATION_PATH)
         os.chdir(DESTINATION_PATH)
         run_npm_install()
     else:
