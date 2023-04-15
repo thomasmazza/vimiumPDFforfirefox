@@ -3,6 +3,7 @@ import shutil
 import sys
 import ctypes
 import subprocess
+import configparser
 
 try:
     from win32com.client import Dispatch
@@ -11,6 +12,13 @@ except ImportError:
     subprocess.check_call([sys.executable, "-m", "pip", "install", "pywin32"])
     print("Restarting the script...")
     os.execv(sys.executable, [sys.executable] + sys.argv)
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+DESTINATION_FOLDER_NAME = config.get('general', 'destination_folder_name')
+PDF_FOLDER_NAME = config.get('general', 'pdf_folder_name')
+SERVER_PORT = config.getint('server', 'port')
 
 
 def create_shortcut(target, path, description):
@@ -106,8 +114,7 @@ if is_admin():
     program_files = os.environ.get('ProgramFiles')
 
     # Specify the target folder name inside the Program Files folder
-    destination_folder_name = "VimiumPDFForFirefox"
-    destination_path = os.path.join(program_files, destination_folder_name)
+    destination_path = os.path.join(program_files, DESTINATION_FOLDER_NAME)
 
     print(f"Source: {source}")
     print(f"Destination: {destination_path}")
@@ -126,8 +133,7 @@ if is_admin():
 
         # Create Symlink to a TEMP Folder for the pdfs
         temp_folder = os.environ.get("TEMP")
-        pdf_folder_name = "VimiumPDFForFirefox"
-        pdf_folder_path = os.path.join(temp_folder, pdf_folder_name)
+        pdf_folder_path = os.path.join(temp_folder, PDF_FOLDER_NAME)
         print("Before copying")
         if not os.path.exists(pdf_folder_path):
             os.makedirs(pdf_folder_path)
