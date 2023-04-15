@@ -19,6 +19,7 @@ config.read('config.ini')
 DESTINATION_FOLDER_NAME = config.get('general', 'destination_folder_name')
 PDF_FOLDER_NAME = config.get('general', 'pdf_folder_name')
 SERVER_PORT = config.getint('server', 'port')
+AUTOSTART = config.getboolean('general', 'autostart')
 
 
 def create_shortcut(target, path, description):
@@ -147,15 +148,18 @@ if is_admin():
         create_symlink(pdf_folder_path, destination_path, "pdf")
 
         # Create Shortcut in Autostart
-        batch_file = os.path.join(
-            os.environ['ProgramFiles'], r'VimiumPDFForFirefox\script', 'run_gulp_server.bat')
-        startup_folder = os.path.join(
-            os.environ['APPDATA'], r'Microsoft\Windows\Start Menu\Programs\Startup')
-        shortcut_path = os.path.join(startup_folder, 'GulpServerPDF.lnk')
-        create_shortcut(batch_file, shortcut_path,
-                        'Run Gulp server as administrator')
-
-        print(f'Shortcut created at: {shortcut_path}')
+        if (AUTOSTART):
+            batch_file = os.path.join(
+                os.environ['ProgramFiles'],
+                r'VimiumPDFForFirefox\script',
+                'run_gulp_server.bat')
+            startup_folder = os.path.join(
+                os.environ['APPDATA'],
+                r'Microsoft\Windows\Start Menu\Programs\Startup')
+            shortcut_path = os.path.join(startup_folder, 'GulpServerPDF.lnk')
+            create_shortcut(batch_file, shortcut_path,
+                            'Run Gulp server as administrator')
+            print(f'Shortcut created at: {shortcut_path}')
 
 else:
     print("The script is running without administrator privileges.")
